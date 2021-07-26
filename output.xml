@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0.3 (Python 3.8.6 on win32)" generated="20210726 16:19:50.781" rpa="false" schemaversion="2">
+<suite id="s1" name="Test Vm" source="C:\Users\WaseemS\Documents\robot with vm\test_vm">
+<kw name="Custom Setup" type="SETUP">
+<kw name="Open Connection" library="SSHLibrary">
+<arg>${HOST}</arg>
+<arg>port=2222</arg>
+<doc>Opens a new SSH connection to the given ``host`` and ``port``.</doc>
+<status status="PASS" starttime="20210726 16:19:50.918" endtime="20210726 16:19:50.919"/>
+</kw>
+<kw name="Login" library="SSHLibrary">
+<arg>username=${USERNAME}</arg>
+<arg>password=${PASSWORD}</arg>
+<doc>Logs into the SSH server with the given ``username`` and ``password``.</doc>
+<msg timestamp="20210726 16:19:50.919" level="INFO">Logging into '127.0.0.1:2222' as 'waseem'.</msg>
+<msg timestamp="20210726 16:19:52.132" level="INFO">Read output: Welcome to Ubuntu 20.04.2 LTS (GNU/Linux 5.8.0-63-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+261 updates can be installed immediately.
+118 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+Last login: Mon Jul 26 16:18:46 2021 from 10.0.2.2
+waseem@waseem-ahmad:~$</msg>
+<status status="PASS" starttime="20210726 16:19:50.919" endtime="20210726 16:19:52.132"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:50.918" endtime="20210726 16:19:52.133"/>
+</kw>
+<suite id="s1-s1" name="Test Vm" source="C:\Users\WaseemS\Documents\robot with vm\test_vm\test_vm.robot">
+<test id="s1-s1-t1" name="Check Hostname">
+<kw name="Execute Command" library="SSHLibrary">
+<var>${HOSTNAME}</var>
+<arg>hostname</arg>
+<doc>Executes ``command`` on the remote machine and returns its outputs.</doc>
+<msg timestamp="20210726 16:19:52.140" level="INFO">Executing command 'hostname'.</msg>
+<msg timestamp="20210726 16:19:52.152" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20210726 16:19:52.152" level="INFO">${HOSTNAME} = waseem-ahmad</msg>
+<status status="PASS" starttime="20210726 16:19:52.140" endtime="20210726 16:19:52.152"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${HOSTNAME}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210726 16:19:52.153" level="INFO">waseem-ahmad</msg>
+<status status="PASS" starttime="20210726 16:19:52.153" endtime="20210726 16:19:52.153"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${HOSTNAME}</arg>
+<arg>waseem-ahmad</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20210726 16:19:52.154" endtime="20210726 16:19:52.154"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:52.139" endtime="20210726 16:19:52.154"/>
+</test>
+<test id="s1-s1-t2" name="Check Network">
+<kw name="Execute Command" library="SSHLibrary">
+<var>${NETWORK}</var>
+<arg>ifconfig</arg>
+<doc>Executes ``command`` on the remote machine and returns its outputs.</doc>
+<msg timestamp="20210726 16:19:52.157" level="INFO">Executing command 'ifconfig'.</msg>
+<msg timestamp="20210726 16:19:52.168" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20210726 16:19:52.168" level="INFO">${NETWORK} = enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::49af:39d9:a007:792e  prefixlen 64  scopeid 0x20&lt;lin...</msg>
+<status status="PASS" starttime="20210726 16:19:52.156" endtime="20210726 16:19:52.168"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${NETWORK}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210726 16:19:52.169" level="INFO">enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
+        inet6 fe80::49af:39d9:a007:792e  prefixlen 64  scopeid 0x20&lt;link&gt;
+        ether 08:00:27:dd:d2:f7  txqueuelen 1000  (Ethernet)
+        RX packets 22509  bytes 20192910 (20.1 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 10023  bytes 1521456 (1.5 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 1410  bytes 130592 (130.5 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1410  bytes 130592 (130.5 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</msg>
+<status status="PASS" starttime="20210726 16:19:52.168" endtime="20210726 16:19:52.169"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${NETWORK}</arg>
+<arg>${NET1}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20210726 16:19:52.170" endtime="20210726 16:19:52.170"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${NETWORK}</arg>
+<arg>${NET2}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20210726 16:19:52.170" endtime="20210726 16:19:52.170"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${NETWORK}</arg>
+<arg>${NET3}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20210726 16:19:52.171" endtime="20210726 16:19:52.171"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:52.156" endtime="20210726 16:19:52.171"/>
+</test>
+<test id="s1-s1-t3" name="Make Directory">
+<kw name="Execute Command" library="SSHLibrary">
+<arg>mkdir robot_control</arg>
+<doc>Executes ``command`` on the remote machine and returns its outputs.</doc>
+<msg timestamp="20210726 16:19:52.174" level="INFO">Executing command 'mkdir robot_control'.</msg>
+<msg timestamp="20210726 16:19:52.187" level="INFO">Command exited with return code 1.</msg>
+<status status="PASS" starttime="20210726 16:19:52.173" endtime="20210726 16:19:52.187"/>
+</kw>
+<kw name="Directory Should Exist" library="SSHLibrary">
+<arg>robot_control</arg>
+<doc>Fails if the given ``path`` does not point to an existing directory.</doc>
+<msg timestamp="20210726 16:19:52.193" level="INFO">[chan 4] Opened sftp connection (server version 3)</msg>
+<status status="PASS" starttime="20210726 16:19:52.187" endtime="20210726 16:19:52.195"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:52.173" endtime="20210726 16:19:52.195"/>
+</test>
+<test id="s1-s1-t4" name="Make File">
+<kw name="Execute Command" library="SSHLibrary">
+<arg>touch file11.txt</arg>
+<doc>Executes ``command`` on the remote machine and returns its outputs.</doc>
+<msg timestamp="20210726 16:19:52.197" level="INFO">Executing command 'touch file11.txt'.</msg>
+<msg timestamp="20210726 16:19:52.210" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" starttime="20210726 16:19:52.197" endtime="20210726 16:19:52.210"/>
+</kw>
+<kw name="File Should Exist" library="SSHLibrary">
+<arg>file11.txt</arg>
+<doc>Fails if the given ``path`` does NOT point to an existing file.</doc>
+<status status="PASS" starttime="20210726 16:19:52.210" endtime="20210726 16:19:52.211"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:52.197" endtime="20210726 16:19:52.212"/>
+</test>
+<test id="s1-s1-t5" name="Copy Directory To Virtual">
+<kw name="Put Directory" library="SSHLibrary">
+<arg>.\\dir1</arg>
+<arg>.</arg>
+<doc>Uploads a directory, including its content, from the local machine to the remote machine.</doc>
+<msg timestamp="20210726 16:19:52.262" level="INFO">'.\dir1\file1.txt' -&gt; '/home/waseem/./dir1/file1.txt'</msg>
+<msg timestamp="20210726 16:19:52.262" level="INFO">'.\dir1\file2.txt' -&gt; '/home/waseem/./dir1/file2.txt'</msg>
+<msg timestamp="20210726 16:19:52.262" level="INFO">'.\dir1\file3.txt' -&gt; '/home/waseem/./dir1/file3.txt'</msg>
+<status status="PASS" starttime="20210726 16:19:52.217" endtime="20210726 16:19:52.262"/>
+</kw>
+<kw name="Execute Command" library="SSHLibrary">
+<var>${NUM_OF_FILES}</var>
+<arg>ls dir1 | wc -l</arg>
+<doc>Executes ``command`` on the remote machine and returns its outputs.</doc>
+<msg timestamp="20210726 16:19:52.263" level="INFO">Executing command 'ls dir1 | wc -l'.</msg>
+<msg timestamp="20210726 16:19:52.275" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20210726 16:19:52.275" level="INFO">${NUM_OF_FILES} = 3</msg>
+<status status="PASS" starttime="20210726 16:19:52.263" endtime="20210726 16:19:52.275"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${NUM_OF_FILES}</arg>
+<arg>3</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" starttime="20210726 16:19:52.275" endtime="20210726 16:19:52.276"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:52.213" endtime="20210726 16:19:52.276"/>
+</test>
+<test id="s1-s1-t6" name="Remove File From Virtual">
+<kw name="Execute Command" library="SSHLibrary">
+<arg>rm dir1/file2.txt</arg>
+<doc>Executes ``command`` on the remote machine and returns its outputs.</doc>
+<msg timestamp="20210726 16:19:52.278" level="INFO">Executing command 'rm dir1/file2.txt'.</msg>
+<msg timestamp="20210726 16:19:52.290" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" starttime="20210726 16:19:52.278" endtime="20210726 16:19:52.290"/>
+</kw>
+<kw name="Execute Command" library="SSHLibrary">
+<var>${NUM_OF_FILES}</var>
+<arg>ls dir1 | wc -l</arg>
+<doc>Executes ``command`` on the remote machine and returns its outputs.</doc>
+<msg timestamp="20210726 16:19:52.290" level="INFO">Executing command 'ls dir1 | wc -l'.</msg>
+<msg timestamp="20210726 16:19:52.303" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20210726 16:19:52.303" level="INFO">${NUM_OF_FILES} = 2</msg>
+<status status="PASS" starttime="20210726 16:19:52.290" endtime="20210726 16:19:52.303"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${NUM_OF_FILES}</arg>
+<arg>2</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" starttime="20210726 16:19:52.304" endtime="20210726 16:19:52.304"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:52.278" endtime="20210726 16:19:52.305"/>
+</test>
+<status status="PASS" starttime="20210726 16:19:52.133" endtime="20210726 16:19:52.306"/>
+</suite>
+<kw name="Custom TearDown" type="TEARDOWN">
+<kw name="Close Connection" library="SSHLibrary">
+<doc>Closes the current connection.</doc>
+<status status="PASS" starttime="20210726 16:19:52.308" endtime="20210726 16:19:52.309"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:52.308" endtime="20210726 16:19:52.310"/>
+</kw>
+<status status="PASS" starttime="20210726 16:19:50.783" endtime="20210726 16:19:52.310"/>
+</suite>
+<statistics>
+<total>
+<stat pass="6" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="6" fail="0" skip="0" id="s1" name="Test Vm">Test Vm</stat>
+<stat pass="6" fail="0" skip="0" id="s1-s1" name="Test Vm">Test Vm.Test Vm</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
